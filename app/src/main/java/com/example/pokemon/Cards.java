@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Cards implements Parcelable {
 
-    private ArrayList<CardsBean> cards;
+    private ArrayList<CardsBean> cards = new ArrayList<>();
 
     public ArrayList<CardsBean> getCards() {
         return cards;
@@ -19,12 +19,6 @@ public class Cards implements Parcelable {
     public void setCards(ArrayList<CardsBean> cards) {
         this.cards = cards;
     }
-
-    //method to include other cards in this object
-    public void addCards(Cards anotherCards) {
-        this.getCards().addAll(anotherCards.getCards());
-    }
-
     public static class CardsBean implements Parcelable {
 
         private String id;
