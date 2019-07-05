@@ -2,8 +2,11 @@ package com.example.pokemon;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -21,21 +24,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     public static final String EXTRA_MESSAGE = "com.example.pokemon.MESSAGE";
     Cards cards[] = new Cards[6];
     private static final String[] rarities = {"common", "uncommon", "rare", "rare holo", "rare ultra", "rare secret"};
     boolean finished = false;
+    int width;
     //components
     NumberProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        width = this.getResources().getDisplayMetrics().widthPixels;
         progressBar = findViewById(R.id.number_progress_bar);
         for (int i = 0; i < rarities.length; i++) {
             cards[i] = new Cards();
@@ -88,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 synchronized (progressBar) {
                     progressBar.setProgress(progressBar.getProgress()+1);
                     GifImageView giv = findViewById(R.id.running_pikachu);
-                    giv.setLeft(giv.getLeft()+10);
+                    giv.setLeft(giv.getLeft()+width/100+1);
+                    giv.setRight(giv.getRight()+width/100+1);
                     if (progressBar.getProgress()==100){
                         finished = true;
                     }
@@ -120,5 +125,13 @@ public class MainActivity extends AppCompatActivity {
         Headers h = getResponseHeader(n);
         int total = Integer.parseInt(h.get("total-count"));
         return (total)/100 + 1;
+    }
+
+    public void launchGame(View view){
+        PokemonApp app = (PokemonApp) getApplicationContext();
+        app.setCards(cards);
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

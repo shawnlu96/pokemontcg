@@ -33,4 +33,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+    implementation ("com.github.bumptech.glide:glide:4.9.0") {
+        exclude group: "com.android.support"
+    }
+    implementation "com.android.support:support-fragment:26.1.0"
 }

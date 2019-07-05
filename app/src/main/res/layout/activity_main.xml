@@ -45,6 +45,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="launchGame"
         android:text="Button"
         tools:layout_editor_absoluteX="587dp"
         tools:layout_editor_absoluteY="47dp" />
@@ -53,7 +54,7 @@
         android:id="@+id/view"
         android:layout_width="739dp"
         android:layout_height="112dp"
-        android:background="#4F000000"
+        android:background="#5B000000"
         app:layout_constraintBottom_toBottomOf="@+id/gifImageView"
         app:layout_constraintEnd_toEndOf="@+id/gifImageView"
         app:layout_constraintHorizontal_bias="0.0"
