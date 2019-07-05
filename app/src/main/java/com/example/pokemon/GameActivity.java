@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +41,7 @@ public class GameActivity extends Activity {
     private int wrongSoundID;
     private int round = 1;
     private ImageView cardLeft, cardRight;
+    private MediaPlayer mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,14 @@ public class GameActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game);
         //initialisation...
+        mp = MediaPlayer.create(GameActivity.this, R.raw.loading);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mp.start();
+                mp.setLooping(true);
+            }
+        }).start();
         soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC,0);
         soundID = soundPool.load(this, R.raw.coins,1);
         wrongSoundID = soundPool.load(this, R.raw.wrong,1);
@@ -185,6 +195,15 @@ public class GameActivity extends Activity {
 
     }
 
-
+    @Override
+    protected void onPause() {
+        mp.pause();
+        super.onPause();
+    }
+    @Override
+    protected void onResume() {
+        mp.start();
+        super.onResume();
+    }
 
 }
