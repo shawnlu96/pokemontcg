@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
     int width;
     //components
     NumberProgressBar progressBar;
+    MediaPlayer mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,14 @@ public class MainActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+        mp = MediaPlayer.create(MainActivity.this, R.raw.loading);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mp.start();
+                mp.setLooping(true);
+            }
+        }).start();
         width = this.getResources().getDisplayMetrics().widthPixels;
         progressBar = findViewById(R.id.number_progress_bar);
         for (int i = 0; i < rarities.length; i++) {
