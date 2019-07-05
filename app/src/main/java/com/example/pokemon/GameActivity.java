@@ -37,6 +37,7 @@ public class GameActivity extends Activity {
     private int winCount = 0;
     private SoundPool soundPool;
     private int soundID;
+    private int wrongSoundID;
     private int round = 1;
     private ImageView cardLeft, cardRight;
     @Override
@@ -50,6 +51,7 @@ public class GameActivity extends Activity {
         //initialisation...
         soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC,0);
         soundID = soundPool.load(this, R.raw.coins,1);
+        wrongSoundID = soundPool.load(this, R.raw.wrong,1);
         //get global variables
         PokemonApp app = (PokemonApp) getApplicationContext();
         cards = app.getCards();
@@ -168,6 +170,7 @@ public class GameActivity extends Activity {
                     initRound();
                 }
             }else{
+                soundPool.play(wrongSoundID,1.0f, 1.0f, 0, 0, 1.0f);
                 initRound();
             }
             TextView tv = findViewById(R.id.round_text);
