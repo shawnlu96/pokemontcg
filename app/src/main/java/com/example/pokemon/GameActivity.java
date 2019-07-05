@@ -1,6 +1,7 @@
 package com.example.pokemon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,7 +37,7 @@ public class GameActivity extends Activity {
     private int winCount = 0;
     private SoundPool soundPool;
     private int soundID;
-
+    private int round = 1;
     private ImageView cardLeft, cardRight;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +136,11 @@ public class GameActivity extends Activity {
     }
 
     public void overallWin(){
-
+        cardLeft.setVisibility(View.INVISIBLE);
+        cardRight.setVisibility(View.INVISIBLE);
+        leftLoaded = false;
+        findViewById(R.id.textView).setVisibility(View.VISIBLE);
+        findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -164,8 +170,17 @@ public class GameActivity extends Activity {
             }else{
                 initRound();
             }
+            TextView tv = findViewById(R.id.round_text);
+            tv.setText("Round " + String.valueOf(++round));
         }
     };
+
+    public void refresh(View v){
+        Intent intent = new Intent(GameActivity.this,GameActivity.class);
+        startActivity(intent);
+        GameActivity.this.finish();
+
+    }
 
 
 

@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
@@ -95,6 +97,11 @@ public class MainActivity extends Activity {
                     giv.setLeft(giv.getLeft()+width/100+1);
                     giv.setRight(giv.getRight()+width/100+1);
                     if (progressBar.getProgress()==100){
+                        findViewById(R.id.view).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.number_progress_bar).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.running_pikachu).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.start_game).setVisibility(View.INVISIBLE);
+                        blink();
                         finished = true;
                     }
                 }
@@ -128,10 +135,36 @@ public class MainActivity extends Activity {
     }
 
     public void launchGame(View view){
-        PokemonApp app = (PokemonApp) getApplicationContext();
-        app.setCards(cards);
-        Intent intent = new Intent(this, GameActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (finished) {
+            PokemonApp app = (PokemonApp) getApplicationContext();
+            app.setCards(cards);
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
+
+    private void blink(){
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final int timeToBlink = 1000;    //in milissegunds
+                try{Thread.sleep(timeToBlink);}catch (Exception e) {}
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView txt =  findViewById(R.id.start_game);
+                        if(txt.getVisibility() == View.VISIBLE){
+                            txt.setVisibility(View.INVISIBLE);
+                            try{Thread.sleep(timeToBlink);}catch (Exception e) {}
+                        }else{
+                            txt.setVisibility(View.VISIBLE);
+                        }
+                        blink();
+                    }
+                });
+            }
+        }).start();
     }
 }

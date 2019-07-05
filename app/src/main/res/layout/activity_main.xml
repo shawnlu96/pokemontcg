@@ -10,7 +10,8 @@
         android:id="@+id/gifImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/pikachu" />
+        android:background="@drawable/pikachu"
+        android:onClick="launchGame" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/running_pikachu"
@@ -41,14 +42,23 @@
         app:progress_reached_color="#F43636"
         app:progress_text_color="#FFFFFF" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/start_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="launchGame"
-        android:text="Button"
-        tools:layout_editor_absoluteX="587dp"
-        tools:layout_editor_absoluteY="47dp" />
+        android:text="- tap to start -"
+        android:textColor="#030900"
+        android:textSize="35sp"
+        android:typeface="serif"
+        android:visibility="invisible"
+        app:fontFamily="sans-serif-condensed-medium"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/gifImageView"
+        app:layout_constraintVertical_bias="0.477" />
 
     <View
         android:id="@+id/view"
@@ -61,5 +71,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gifImageView"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="364dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="launchGame"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/gifImageView"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/gifImageView"
+        app:layout_constraintTop_toTopOf="@+id/gifImageView"
+        app:layout_constraintVertical_bias="0.127" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
