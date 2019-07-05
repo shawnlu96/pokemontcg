@@ -144,13 +144,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="256dp"
-        android:layout_height="82dp"
+        android:layout_width="345dp"
+        android:layout_height="79dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="refresh"
-        android:text="You Win!"
+        android:text="Tap to restart"
         android:textColor="#000000"
         android:textSize="50sp"
         android:visibility="invisible"
