@@ -170,6 +170,7 @@ public class MainActivity extends Activity {
                             try{Thread.sleep(timeToBlink);}catch (Exception e) {}
                         }else{
                             txt.setVisibility(View.VISIBLE);
+                            try{Thread.sleep(timeToBlink/2);}catch (Exception e) {}
                         }
                         blink();
                     }
